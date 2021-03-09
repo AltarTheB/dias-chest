@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    var GameConfig = {
+      last_move: '{{ last_move }}'
+    }
+</script>
+
+{% if move_result == false %}
+    <script type="text/javascript">
+        alert("{{ move_error }}");
+    </script>
+{% endif %}
+
+<table class="board">
+    {% for row in board %}
+        {% set outer_loop = loop %}
+        <tr>
+            {% for piece in row %}
+              <td class="board__square" data-x="{{ loop.index0 }}" data-y="{{ outer_loop.index0 }}">
+                  {% if piece %}
+                      <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}" data-color="{{ piece.color }}"></div>
+                  {% endif %}
+              </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
